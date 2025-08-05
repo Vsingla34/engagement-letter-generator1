@@ -238,7 +238,7 @@ if submitted:
     )
     st.subheader("Preview")
     st.code(letter_text, language="markdown")
-    docx_file = generate_docx(letter_text, logo_file)
+    docx_file = generate_docx(letter_text)
 
     st.markdown("#### Download")
     st.download_button("⬇️ Download as Word (.docx)", docx_file, file_name=f"{assignment_type.replace(' ','_')}_Engagement_Letter_{client_name}.docx")
