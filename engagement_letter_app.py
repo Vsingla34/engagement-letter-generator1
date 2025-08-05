@@ -3,12 +3,12 @@ import pandas as pd
 from docx import Document
 from docx.shared import Inches
 from datetime import date
-import io, os
+import io, os, platform
 
 # For emailing
 import yagmail
 
-# For PDF conversion (Windows/Mac only, needs MS Word/Preview)
+# PDF conversion (Windows/Mac only, needs MS Word/Preview)
 try:
     from docx2pdf import convert as docx2pdf_convert
     DOCX2PDF_AVAILABLE = True
@@ -244,16 +244,19 @@ if submitted:
     st.markdown("#### Download")
     st.download_button("⬇️ Download as Word (.docx)", docx_file, file_name=f"{assignment_type.replace(' ','_')}_Engagement_Letter_{client_name}.docx")
 
-    # PDF Conversion
-    temp_docx_path = save_temp_docx(docx_file)
-    if DOCX2PDF_AVAILABLE:
+    # --- PDF Download: Only on Windows/Mac ---
+    if platform.system() in ['Windows', 'Darwin'] and DOCX2PDF_AVAILABLE:
+        temp_docx_path = save_temp_docx(docx_file)
         pdf_path = convert_docx_to_pdf(temp_docx_path)
         if pdf_path and os.path.exists(pdf_path):
             with open(pdf_path, "rb") as f:
                 st.download_button("⬇️ Download as PDF", f, file_name=f"{assignment_type.replace(' ','_')}_Engagement_Letter_{client_name}.pdf")
             os.remove(pdf_path)
     else:
-        st.info("PDF download is available only on Windows/Mac (docx2pdf).")
+        st.info(
+            "PDF download is only available if you run this app on Windows or Mac with MS Word installed. "
+            "To generate a PDF, download the Word file above and use 'Save As PDF' in MS Word or Google Docs."
+        )
 
     # ---- Email Integration ----
     with st.expander("📧 Email This Letter"):
