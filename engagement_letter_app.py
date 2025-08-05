@@ -167,9 +167,9 @@ Place: {place}
 
 # ------------------- Streamlit App ------------------- #
 
-st.set_page_config(page_title="ICAI Engagement Letter Generator", layout="centered")
-st.title("📄 ICAI Engagement Letter Generator (Official Format Only)")
-st.caption("Auto-generate official ICAI engagement letters for Audit Assignments. | Powered by Streamlit")
+st.set_page_config(page_title="Engagement Letter Generator", layout="centered")
+st.title("📄 Engagement Letter Generator (Official Format Only)")
+st.caption("Auto-generate official engagement letters for Audit Assignments.")
 
 # --- Sidebar Firm/Signatory Info ---
 st.sidebar.header("Firm & Signatory Info")
@@ -179,7 +179,6 @@ firm_address = st.sidebar.text_area("Firm Address", "W-101, Mangal Bazar, Laxmi 
 signatory_name = st.sidebar.text_input("Partner Name", "CA Vishal Singla")
 designation = st.sidebar.text_input("Designation", "Partner")
 place = st.sidebar.text_input("Place", "Delhi")
-logo_file = st.sidebar.file_uploader("Firm Logo (optional)", type=["png", "jpg", "jpeg"])
 today_str = date.today().strftime("%d-%m-%Y")
 
 # --- Single Letter Form ---
